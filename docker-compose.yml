@@ -1,0 +1,20 @@
+version: "3"
+# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+services:
+  mypihole:
+    container_name: mypihole
+    build: 
+      context: .
+    image: jbtranalytics/mypihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+    environment:
+      TZ: 'America/Los_Angeles'
+      DNSMASQ_LISTENING: 'all'
+      PIHOLE_DNS_: '127.0.0.1#5335'
+      QUERY_LOGGING: 'true'
+    restart: unless-stopped
+    env_file:
+      - .env
